@@ -1,0 +1,22 @@
+{
+  "title": "Toram Test Gallery",
+  "description": "testing",
+  "artist": "Cica",
+  "author": "Cica was here",
+  "cover": "https://cdn.discordapp.com/attachments/557696424884699138/972889214825922610/ToramOnline_2022-05-08_07-54-15.jpg",
+  "chapters": {
+    "1": {
+      "title": "1",
+      "volume": "1",
+      "last_updated": "1652025056",
+      "groups": {
+        "TEST": [
+          "https://cdn.discordapp.com/attachments/557696424884699138/972889214523961446/ToramOnline_2022-05-08_07-54-09.jpg",
+          "https://cdn.discordapp.com/attachments/557696424884699138/972889214825922610/ToramOnline_2022-05-08_07-54-15.jpg",
+          "https://cdn.discordapp.com/attachments/557696424884699138/972889215098560582/ToramOnline_2022-05-08_07-58-32.jpg",
+          "https://cdn.discordapp.com/attachments/557696424884699138/972889215358632046/ToramOnline_2022-05-08_07-58-36.jpg"
+        ]
+      }
+    }
+  }
+}
