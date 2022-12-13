@@ -1,13 +1,13 @@
 {
   "title": "Reference Materials",
-  "description": "",
-  "artist": "",
-  "author": "",
+  "description": "Material to be sent for Commissioning",
+  "artist": "Yukirine",
+  "author": "Cicadeus",
   "cover": "",
   "chapters": {
     "1": {
-      "title": "1",
-      "volume": "",
+      "title": "Character",
+      "volume": "1",
       "last_updated": "1670959538",
       "groups": {
         "": [
