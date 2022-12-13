@@ -3,7 +3,7 @@
   "description": "Material to be sent for Commissioning",
   "artist": "Yukirine",
   "author": "Cicadeus",
-  "cover": "",
+  "cover": "https://cdn.discordapp.com/attachments/557696424884699138/1052338617768489061/8.jpg",
   "chapters": {
     "1": {
       "title": "Character",
@@ -29,7 +29,10 @@
       "last_updated": "1670967064",
       "groups": {
         "": [
-          ""
+          "https://cdn.discordapp.com/attachments/557696424884699138/1052338617768489061/8.jpg",
+          "https://images7.alphacoders.com/317/317485.png",
+          "https://media.comicbook.com/2019/08/kamehameha-1182415.jpeg?auto=webp&width=697&height=395&crop=697:395,smart",
+          "https://sm.ign.com/ign_ap/news/d/dragon-bal/dragon-balls-kamehameha-might-be-fortnites-most-meme-worthy_er6d.jpg"
         ]
       }
     }
