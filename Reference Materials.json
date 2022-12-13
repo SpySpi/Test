@@ -4,5 +4,24 @@
   "artist": "",
   "author": "",
   "cover": "",
-  "chapters": {}
+  "chapters": {
+    "1": {
+      "title": "1",
+      "volume": "",
+      "last_updated": "1670959538",
+      "groups": {
+        "": [
+          "https://cdn.discordapp.com/attachments/968474258743382026/1052290334069096479/image.png",
+          "https://cdn.discordapp.com/attachments/968474258743382026/1052290832931225680/image.png",
+          "https://cdn.discordapp.com/attachments/968474258743382026/1052290915462549565/image.png",
+          "https://cdn.discordapp.com/attachments/968474258743382026/1052291000397217842/image.png",
+          "https://cdn.discordapp.com/attachments/968474258743382026/1052291081187905556/image.png",
+          "https://cdn.discordapp.com/attachments/968474258743382026/1052291185072414760/image.png",
+          "https://cdn.discordapp.com/attachments/968474258743382026/1052291497367715961/image.png",
+          "https://cdn.discordapp.com/attachments/968474258743382026/1052291715479896085/image.png",
+          "https://cdn.discordapp.com/attachments/968474258743382026/1052291761344614543/image.png"
+        ]
+      }
+    }
+  }
 }
