@@ -13,7 +13,10 @@ function Export-RegistryKeys {
             # Display the entries and allow user to select which ones to export
             Write-Host "Available entries in Data.txt:"
             for ($i = 0; $i -lt $dataLines.Count; $i++) {
-                Write-Host "[$i] $dataLines[$i]"
+                $entry = $dataLines[$i] -split ","
+                $name = ($entry[0] -split "=")[1]
+                $type = ($entry[1] -split "=")[1]
+                Write-Host "[$i] Name=$name, Type=$type"
             }
             $selectedIndices = Read-Host "Enter the indices of the entries to export (comma-separated):"
             $selectedIndices = $selectedIndices -split "," | ForEach-Object { $_.Trim() }
@@ -61,19 +64,5 @@ function Export-RegistryKeys {
     }
 }
 
-# Main menu loop
-do {
-    Clear-Host
-    Write-Host "--- Export Script Execution Started ---"
-    Write-Host "[1] Export multiple keys from Data.txt to .reg"
-    Write-Host "[2] Exit"
-
-    $choice = Read-Host "Enter your choice (1-2):"
-
-    switch ($choice) {
-        '1' { Export-RegistryKeys }
-        '2' { Write-Host "Exiting script." }
-        default { Write-Host "Invalid choice. Please try again." }
-    }
-
-} while ($choice -ne '2')
+# Initiate script execution immediately
+Export-RegistryKeys
