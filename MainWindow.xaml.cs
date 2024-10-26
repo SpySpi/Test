@@ -1,4 +1,6 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Windows;
 
@@ -9,6 +11,7 @@ namespace RegistryApp
         public MainWindow()
         {
             InitializeComponent();
+            LoadRegistryData();
         }
 
         private void Button1_Click(object sender, RoutedEventArgs e)
@@ -24,6 +27,39 @@ namespace RegistryApp
         private void Button3_Click(object sender, RoutedEventArgs e)
         {
             RunScript("SteamOptionKey_h3876606495");
+        }
+
+        private void BtnExport_Click(object sender, RoutedEventArgs e)
+        {
+            if (DataGridRegistry.SelectedItem is RegistryItem selectedItem)
+            {
+                File.AppendAllText("ExportedData.txt", $"{selectedItem.Name},{selectedItem.Type}\n");
+                MessageBox.Show("Selected item exported.");
+            }
+        }
+
+        private void LoadRegistryData()
+        {
+            var registryItems = new List<RegistryItem>();
+
+            if (File.Exists("Data.txt"))
+            {
+                var lines = File.ReadAllLines("Data.txt");
+                foreach (var line in lines)
+                {
+                    var parts = line.Split(',');
+                    if (parts.Length >= 3)
+                    {
+                        registryItems.Add(new RegistryItem
+                        {
+                            Name = parts[0].Split('=')[1],
+                            Type = parts[1].Split('=')[1]
+                        });
+                    }
+                }
+            }
+
+            DataGridRegistry.ItemsSource = registryItems;
         }
 
         private void RunScript(string key)
@@ -46,5 +82,11 @@ namespace RegistryApp
                 }
             }
         }
+    }
+
+    public class RegistryItem
+    {
+        public string Name { get; set; }
+        public string Type { get; set; }
     }
 }
