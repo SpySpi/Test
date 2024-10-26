@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace RegistryApp
 {
@@ -12,45 +9,42 @@ namespace RegistryApp
         public MainWindow()
         {
             InitializeComponent();
-            LoadData();
         }
 
-        private void LoadData()
+        private void Button1_Click(object sender, RoutedEventArgs e)
         {
-            if (File.Exists("Data.txt"))
+            RunScript("AsobimoOptionKey_Guest_h3614151626");
+        }
+
+        private void Button2_Click(object sender, RoutedEventArgs e)
+        {
+            RunScript("AsobimoOptionKey_h1824440549");
+        }
+
+        private void Button3_Click(object sender, RoutedEventArgs e)
+        {
+            RunScript("SteamOptionKey_h3876606495");
+        }
+
+        private void RunScript(string key)
+        {
+            ProcessStartInfo startInfo = new ProcessStartInfo
             {
-                var data = File.ReadAllLines("Data.txt")
-                               .Select(line => line.Split(','))
-                               .Select(parts => new RegistryEntry
-                               {
-                                   Name = parts[0].Split('=')[1],
-                                   Type = parts[1].Split('=')[1]
-                               }).ToList();
-                DataGridRegistry.ItemsSource = data;
+                FileName = "powershell.exe",
+                Arguments = $"-File QueryRegistry.ps1 -key {key}",
+                RedirectStandardOutput = true,
+                UseShellExecute = false,
+                CreateNoWindow = true,
+            };
+
+            using (Process process = Process.Start(startInfo))
+            {
+                using (StreamReader reader = process.StandardOutput)
+                {
+                    string result = reader.ReadToEnd();
+                    MessageBox.Show(result);
+                }
             }
         }
-
-        private void BtnQuery_Click(object sender, RoutedEventArgs e)
-        {
-            // Execute QueryRegistry.ps1
-            System.Diagnostics.Process.Start("powershell.exe", "-File QueryRegistry.ps1");
-            LoadData(); // Reload data after querying
-        }
-
-        private void BtnExport_Click(object sender, RoutedEventArgs e)
-        {
-            var selectedEntry = DataGridRegistry.SelectedItem as RegistryEntry;
-            if (selectedEntry != null)
-            {
-                // Execute ExportRegistry.ps1 with selected entry
-                System.Diagnostics.Process.Start("powershell.exe", $"-File ExportRegistry.ps1 -EntryName {selectedEntry.Name} -EntryType {selectedEntry.Type}");
-            }
-        }
-    }
-
-    public class RegistryEntry
-    {
-        public string Name { get; set; }
-        public string Type { get; set; }
     }
 }
