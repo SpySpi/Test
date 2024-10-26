@@ -3,16 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Registry App" Height="350" Width="525">
     <Grid>
-        <DataGrid Name="DataGridRegistry" AutoGenerateColumns="False" IsReadOnly="False" SelectionMode="Single" SelectionUnit="FullRow"
-                  CanUserReorderColumns="True" CanUserSortColumns="True" CanUserResizeColumns="True"
-                  DragEnter="DataGridRegistry_DragEnter" Drop="DataGridRegistry_Drop" PreviewMouseLeftButtonDown="DataGridRegistry_PreviewMouseLeftButtonDown">
+        <DataGrid Name="DataGridRegistry" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single" SelectionUnit="FullRow">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"/>
                 <DataGridTextColumn Header="Type" Binding="{Binding Type}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Name="BtnQuery" Content="Query Registry" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="120" Margin="10"/>
-        <Button Name="BtnExport" Content="Export Selected" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="120" Margin="10"/>
-        <Button Name="BtnSave" Content="Save Changes" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="120" Margin="140,10,0,0" Click="BtnSave_Click"/>
+        <Button Name="BtnQuery" Content="Query Registry" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="120" Margin="10" Click="BtnQuery_Click"/>
+        <Button Name="BtnExport" Content="Export Selected" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="120" Margin="10" Click="BtnExport_Click"/>
     </Grid>
 </Window>
