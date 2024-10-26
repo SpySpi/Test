@@ -21,9 +21,22 @@ function Export-RegistryKeys {
             $selectedIndex = Read-Host "Enter the index of the entry to export:"
             $selectedIndex = $selectedIndex.Trim()
 
-            # Ask user for key type (1 for Asobimo, 2 for Steam)
-            $keyTypeChoice = Read-Host "Enter the key type (1 for Asobimo, 2 for Steam):"
-            $keyName = if ($keyTypeChoice -eq "1") { "AsobimoOptionKey_h1824440549" } else { "SteamOptionKey_h3876606495" }
+            # Add the selected entry to the .reg file
+            $line = $dataLines[$selectedIndex]
+            $entry = $line -split ","
+            $name = ($entry[0] -split "=")[1]
+            $type = ($entry[1] -split "=")[1]
+            $value = ($entry[2] -split "=")[1]
+
+            # Determine the correct key name based on type
+            if ($type -eq "Guest") {
+                $keyName = "AsobimoOptionKey_Guest_h3614151626"
+            }
+            else {
+                # Ask user for key type (1 for Asobimo, 2 for Steam)
+                $keyTypeChoice = Read-Host "Enter the key type (1 for Asobimo, 2 for Steam):"
+                $keyName = if ($keyTypeChoice -eq "1") { "AsobimoOptionKey_h1824440549" } else { "SteamOptionKey_h3876606495" }
+            }
 
             # Use the name from the selected entry or prompt for a name
             $defaultName = ($dataLines[$selectedIndex] -split ",")[0] -split "="
@@ -39,13 +52,6 @@ function Export-RegistryKeys {
             # Write the header to the .reg file
             Set-Content -Path $regFileName -Value "Windows Registry Editor Version 5.00`r`n"
             Add-Content -Path $regFileName -Value "[HKEY_CURRENT_USER\SOFTWARE\Asobimo,Inc\ToramOnline]"
-
-            # Add the selected entry to the .reg file
-            $line = $dataLines[$selectedIndex]
-            $entry = $line -split ","
-            $name = ($entry[0] -split "=")[1]
-            $type = ($entry[1] -split "=")[1]
-            $value = ($entry[2] -split "=")[1]
 
             # Format hex value into comma-separated byte pairs
             $hexBytes = $value -split '(?<=\G..)'
