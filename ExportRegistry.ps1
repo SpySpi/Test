@@ -50,7 +50,10 @@ function Export-RegistryKeys {
             $hexBytes = $value -split '(?<=\G..)'
             $formattedHex = -join ($hexBytes -join ',')
 
-            # Write the entry to the .reg file
+            # Write the entry to the .reg file without trailing comma
+            if ($formattedHex.EndsWith(",")) {
+                $formattedHex = $formattedHex.TrimEnd(",")
+            }
             Add-Content -Path $regFileName -Value "`r`n`"$keyName`"=hex:$formattedHex"
 
             Write-Host "Registry key successfully exported to $regFileName"
