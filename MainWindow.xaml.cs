@@ -30,11 +30,22 @@ namespace RegistryApp
             }
         }
 
-        private void BtnQuery_Click(object sender, RoutedEventArgs e)
+        private void BtnQuery1_Click(object sender, RoutedEventArgs e)
         {
-            // Execute QueryRegistry.ps1
-            System.Diagnostics.Process.Start("powershell.exe", "-File QueryRegistry.ps1");
-            LoadData(); // Reload data after querying
+            ExecutePowerShellScript("QueryRegistry.ps1", "AsobimoOptionKey_Guest_h3614151626");
+            LoadData();
+        }
+
+        private void BtnQuery2_Click(object sender, RoutedEventArgs e)
+        {
+            ExecutePowerShellScript("QueryRegistry.ps1", "AsobimoOptionKey_h1824440549");
+            LoadData();
+        }
+
+        private void BtnQuery3_Click(object sender, RoutedEventArgs e)
+        {
+            ExecutePowerShellScript("QueryRegistry.ps1", "SteamOptionKey_h3876606495");
+            LoadData();
         }
 
         private void BtnExport_Click(object sender, RoutedEventArgs e)
@@ -42,9 +53,15 @@ namespace RegistryApp
             var selectedEntry = DataGridRegistry.SelectedItem as RegistryEntry;
             if (selectedEntry != null)
             {
-                // Execute ExportRegistry.ps1 with selected entry
-                System.Diagnostics.Process.Start("powershell.exe", $"-File ExportRegistry.ps1 -EntryName {selectedEntry.Name} -EntryType {selectedEntry.Type}");
+                string arguments = $"-File ExportRegistry.ps1 -EntryName {selectedEntry.Name} -EntryType {selectedEntry.Type}";
+                System.Diagnostics.Process.Start("powershell.exe", arguments);
             }
+        }
+
+        private void ExecutePowerShellScript(string scriptPath, string argument)
+        {
+            string arguments = $"-File {scriptPath} -ArgumentList {argument}";
+            System.Diagnostics.Process.Start("powershell.exe", arguments);
         }
     }
 

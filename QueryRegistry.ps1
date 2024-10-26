@@ -1,4 +1,6 @@
-# QueryRegistry.ps1
+param (
+    [string]$key
+)
 
 # Define the registry keys to query
 $keysToExport = @(
@@ -39,24 +41,4 @@ function Query-RegistryKey {
     Write-Host "Failed to extract the registry value. Please verify the output above."
 }
 
-# Main menu loop
-do {
-    Clear-Host
-    Write-Host "--- Query Script Execution Started ---"
-    Write-Host "Select an option:"
-    Write-Host "[1] Query and save AsobimoOptionKey_Guest_h3614151626 to Data.txt"
-    Write-Host "[2] Query and save AsobimoOptionKey_h1824440549 to Data.txt"
-    Write-Host "[3] Query and save SteamOptionKey_h3876606495 to Data.txt"
-    Write-Host "[4] Exit"
-
-    $choice = Read-Host "Enter your choice (1-4):"
-
-    switch ($choice) {
-        '1' { Query-RegistryKey -key $keysToExport[0] }
-        '2' { Query-RegistryKey -key $keysToExport[1] }
-        '3' { Query-RegistryKey -key $keysToExport[2] }
-        '4' { Write-Host "Exiting script." }
-        default { Write-Host "Invalid choice. Please try again." }
-    }
-
-} while ($choice -ne '4')
+Query-RegistryKey -key $key

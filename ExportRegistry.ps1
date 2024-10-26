@@ -1,4 +1,7 @@
-# ExportRegistry.ps1
+param (
+    [string]$EntryName,
+    [string]$EntryType
+)
 
 # Read all lines from Data.txt
 if (Test-Path -Path "Data.txt") {
@@ -58,6 +61,3 @@ if (Test-Path -Path "Data.txt") {
 else {
     Write-Host "Data.txt not found. Please query and save some keys first."
 }
-
-# Initiate script execution immediately
-Export-RegistryKeys

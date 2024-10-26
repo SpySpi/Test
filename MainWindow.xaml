@@ -9,7 +9,11 @@
                 <DataGridTextColumn Header="Type" Binding="{Binding Type}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Name="BtnQuery" Content="Query Registry" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="120" Margin="10" Click="BtnQuery_Click"/>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="10">
+            <Button Name="BtnQuery1" Content="Query Key 1" Width="120" Margin="0,0,10,0" Click="BtnQuery1_Click"/>
+            <Button Name="BtnQuery2" Content="Query Key 2" Width="120" Margin="0,0,10,0" Click="BtnQuery2_Click"/>
+            <Button Name="BtnQuery3" Content="Query Key 3" Width="120" Click="BtnQuery3_Click"/>
+        </StackPanel>
         <Button Name="BtnExport" Content="Export Selected" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="120" Margin="10" Click="BtnExport_Click"/>
     </Grid>
 </Window>
