@@ -2,13 +2,6 @@ param (
     [string]$key
 )
 
-# Define the registry keys to query
-$keysToExport = @(
-    "AsobimoOptionKey_Guest_h3614151626",
-    "AsobimoOptionKey_h1824440549",
-    "SteamOptionKey_h3876606495"
-)
-
 function Query-RegistryKey {
     param (
         [string]$key
@@ -42,3 +35,4 @@ function Query-RegistryKey {
 }
 
 Query-RegistryKey -key $key
+pause

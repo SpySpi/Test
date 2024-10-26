@@ -54,14 +54,23 @@ namespace RegistryApp
             if (selectedEntry != null)
             {
                 string arguments = $"-File ExportRegistry.ps1 -EntryName {selectedEntry.Name} -EntryType {selectedEntry.Type}";
-                System.Diagnostics.Process.Start("powershell.exe", arguments);
+                ExecutePowerShellScript("ExportRegistry.ps1", arguments);
             }
         }
 
         private void ExecutePowerShellScript(string scriptPath, string argument)
         {
-            string arguments = $"-File {scriptPath} -ArgumentList {argument}";
-            System.Diagnostics.Process.Start("powershell.exe", arguments);
+            string arguments = $"-NoExit -File {scriptPath} -ArgumentList {argument}";
+            System.Diagnostics.ProcessStartInfo psi = new System.Diagnostics.ProcessStartInfo
+            {
+                FileName = "powershell.exe",
+                Arguments = arguments,
+                RedirectStandardOutput = true,
+                UseShellExecute = false,
+                CreateNoWindow = true
+            };
+            System.Diagnostics.Process process = System.Diagnostics.Process.Start(psi);
+            process.WaitForExit();
         }
     }
 

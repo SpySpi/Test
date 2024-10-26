@@ -61,3 +61,4 @@ if (Test-Path -Path "Data.txt") {
 else {
     Write-Host "Data.txt not found. Please query and save some keys first."
 }
+pause
