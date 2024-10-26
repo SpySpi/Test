@@ -21,6 +21,10 @@ function Export-RegistryKeys {
             $selectedIndex = Read-Host "Enter the index of the entry to export:"
             $selectedIndex = $selectedIndex.Trim()
 
+            # Ask user for key type (1 for Asobimo, 2 for Steam)
+            $keyTypeChoice = Read-Host "Enter the key type (1 for Asobimo, 2 for Steam):"
+            $keyName = if ($keyTypeChoice -eq "1") { "AsobimoOptionKey_h1824440549" } else { "SteamOptionKey_h3876606495" }
+
             # Use the name from the selected entry or prompt for a name
             $defaultName = ($dataLines[$selectedIndex] -split ",")[0] -split "="
             $defaultName = $defaultName[1]
@@ -42,10 +46,6 @@ function Export-RegistryKeys {
             $name = ($entry[0] -split "=")[1]
             $type = ($entry[1] -split "=")[1]
             $value = ($entry[2] -split "=")[1]
-
-            # Ask user for key type (Asobimo or Steam)
-            $keyType = Read-Host "Enter the key type (Asobimo or Steam):"
-            $keyName = if ($keyType -eq "Asobimo") { "AsobimoOptionKey_h1824440549" } else { "SteamOptionKey_h3876606495" }
 
             # Format hex value into comma-separated byte pairs
             $hexBytes = $value -split '(?<=\G..)'
