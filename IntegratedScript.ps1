@@ -1,5 +1,3 @@
-# Integrated script to handle GUI interactions with Data.txt, QueryRegistry.ps1, and ExportRegistry.ps1
-
 function Main-GUIFunction {
     param (
         [string]$operation
