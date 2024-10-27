@@ -1,3 +1,5 @@
+# Integrated script to handle GUI interactions with Data.txt, QueryRegistry.ps1, and ExportRegistry.ps1
+
 function Main-GUIFunction {
     param (
         [string]$operation
@@ -10,6 +12,7 @@ function Main-GUIFunction {
             'query' {
                 Write-Host "Executing query operation..."
                 if (Test-Path -Path ".\QueryRegistry.ps1") {
+                    Write-Host "QueryRegistry.ps1 found. Running..."
                     . .\QueryRegistry.ps1
                     Query-RegistryKey
                 } else {
@@ -19,6 +22,7 @@ function Main-GUIFunction {
             'export' {
                 Write-Host "Executing export operation..."
                 if (Test-Path -Path ".\ExportRegistry.ps1") {
+                    Write-Host "ExportRegistry.ps1 found. Running..."
                     . .\ExportRegistry.ps1
                     Export-RegistryKeys
                 } else {
