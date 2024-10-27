@@ -15,11 +15,11 @@ function Export-RegistryKeys {
             $entry = $dataLines[$i] -split ","
             $name = ($entry[0] -split "=")[1]
             $type = ($entry[1] -split "=")[1]
-            Write-Host "[$i] Name=$name, Type=$type"
+            Write-Host "[$($i + 1)] Name=$name, Type=$type"
         }
         
         $selectedIndex = Read-Host "Enter the index of the entry to export:"
-        $selectedIndex = $selectedIndex.Trim()
+        $selectedIndex = $selectedIndex.Trim() - 1  # Adjust for 1-based indexing
 
         if ($selectedIndex -lt 0 -or $selectedIndex -ge $dataLines.Count) {
             Write-Host "Invalid index. Exiting script."
