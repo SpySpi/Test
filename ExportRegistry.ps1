@@ -43,16 +43,10 @@ function Export-RegistryKeys {
             $keyName = if ($keyTypeChoice -eq "1") { "AsobimoOptionKey_h1824440549" } else { "SteamOptionKey_h3876606495" }
         }
 
-        # Use the name from the selected entry or prompt for a name
+        # Use the name from the selected entry as the default name
         $defaultName = ($dataLines[$selectedIndex] -split ",")[0] -split "="
         $defaultName = $defaultName[1]
-        $regFileName = Read-Host "Enter the name for the .reg file (or press Enter for default: $defaultName)"
-        if ([string]::IsNullOrWhiteSpace($regFileName)) {
-            $regFileName = "$defaultName.reg"
-        }
-        else {
-            $regFileName = "$regFileName.reg"
-        }
+        $regFileName = "$defaultName.reg"
 
         # Write the header to the .reg file
         Set-Content -Path $regFileName -Value "Windows Registry Editor Version 5.00`r`n"
