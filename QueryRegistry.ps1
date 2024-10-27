@@ -1,5 +1,10 @@
-param (
-    [string]$key
+# QueryRegistry.ps1
+
+# Define the registry keys to query
+$keysToExport = @(
+    "AsobimoOptionKey_Guest_h3614151626",
+    "AsobimoOptionKey_h1824440549",
+    "SteamOptionKey_h3876606495"
 )
 
 function Query-RegistryKey {
@@ -21,8 +26,11 @@ function Query-RegistryKey {
             $hexValue = $matches[1]
             Write-Host "Hex Value for ${key}: $hexValue"
 
-            # Use a default name based on the current date and time
-            $name = (Get-Date).ToString("yy-MM-dd_HH-mm")
+            # Prompt the user for a name
+            $name = Read-Host "Enter a name for this key (or press Enter for default)"
+            if ([string]::IsNullOrWhiteSpace($name)) {
+                $name = (Get-Date).ToString("yy-MM-dd_HH-mm")
+            }
 
             # Save the key, type, and value to Data.txt
             $type = if ($key -like "*Guest*") { "Guest" } else { "Key" }
@@ -34,5 +42,24 @@ function Query-RegistryKey {
     Write-Host "Failed to extract the registry value. Please verify the output above."
 }
 
-Query-RegistryKey -key $key
-pause
+# Main menu loop
+do {
+    Clear-Host
+    Write-Host "--- Query Script Execution Started ---"
+    Write-Host "Select an option:"
+    Write-Host "[1] Query and save AsobimoOptionKey_Guest_h3614151626 to Data.txt"
+    Write-Host "[2] Query and save AsobimoOptionKey_h1824440549 to Data.txt"
+    Write-Host "[3] Query and save SteamOptionKey_h3876606495 to Data.txt"
+    Write-Host "[4] Exit"
+
+    $choice = Read-Host "Enter your choice (1-4):"
+
+    switch ($choice) {
+        '1' { Query-RegistryKey -key $keysToExport[0] }
+        '2' { Query-RegistryKey -key $keysToExport[1] }
+        '3' { Query-RegistryKey -key $keysToExport[2] }
+        '4' { Write-Host "Exiting script." }
+        default { Write-Host "Invalid choice. Please try again." }
+    }
+
+} while ($choice -ne '4')
