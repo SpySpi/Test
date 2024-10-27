@@ -5,37 +5,42 @@ function Main-GUIFunction {
         [string]$operation
     )
 
-    switch ($operation) {
-        'query' {
-            # Call Query-RegistryKey function from QueryRegistry.ps1
-            . .\QueryRegistry.ps1
-            Query-RegistryKey
-        }
-        'export' {
-            # Call Export-RegistryKeys function from ExportRegistry.ps1
-            . .\ExportRegistry.ps1
-            Export-RegistryKeys
-        }
-        'view' {
-            # Display contents of Data.txt
-            if (Test-Path -Path "Data.txt") {
-                $dataLines = Get-Content -Path "Data.txt"
-                if ($dataLines.Count -eq 0) {
-                    Write-Host "Data.txt is empty."
-                } else {
-                    Write-Host "Contents of Data.txt:"
-                    foreach ($line in $dataLines) {
-                        Write-Host $line
+    try {
+        switch ($operation) {
+            'query' {
+                # Call Query-RegistryKey function from QueryRegistry.ps1
+                . .\QueryRegistry.ps1
+                Query-RegistryKey
+            }
+            'export' {
+                # Call Export-RegistryKeys function from ExportRegistry.ps1
+                . .\ExportRegistry.ps1
+                Export-RegistryKeys
+            }
+            'view' {
+                # Display contents of Data.txt
+                if (Test-Path -Path "Data.txt") {
+                    $dataLines = Get-Content -Path "Data.txt"
+                    if ($dataLines.Count -eq 0) {
+                        Write-Host "Data.txt is empty."
+                    } else {
+                        Write-Host "Contents of Data.txt:"
+                        foreach ($line in $dataLines) {
+                            Write-Host $line
+                        }
                     }
                 }
+                else {
+                    Write-Host "Data.txt not found."
+                }
             }
-            else {
-                Write-Host "Data.txt not found."
+            default {
+                Write-Host "Invalid operation. Please choose 'query', 'export', or 'view'."
             }
         }
-        default {
-            Write-Host "Invalid operation. Please choose 'query', 'export', or 'view'."
-        }
+    }
+    catch {
+        Write-Host "An error occurred: $_"
     }
 
     # Pause to keep the script window open
