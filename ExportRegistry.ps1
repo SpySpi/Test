@@ -1,5 +1,3 @@
-# ExportRegistry.ps1
-
 function Export-RegistryKeys {
     # Export a single key from Data.txt to .reg file
 
@@ -33,21 +31,11 @@ function Export-RegistryKeys {
                 $keyName = "AsobimoOptionKey_Guest_h3614151626"
             }
             else {
-                # Ask user for key type (1 for Asobimo, 2 for Steam)
-                $keyTypeChoice = Read-Host "Enter the key type (1 for Asobimo, 2 for Steam):"
-                $keyName = if ($keyTypeChoice -eq "1") { "AsobimoOptionKey_h1824440549" } else { "SteamOptionKey_h3876606495" }
+                $keyName = "AsobimoOptionKey_h1824440549"
             }
 
-            # Use the name from the selected entry or prompt for a name
-            $defaultName = ($dataLines[$selectedIndex] -split ",")[0] -split "="
-            $defaultName = $defaultName[1]
-            $regFileName = Read-Host "Enter the name for the .reg file (or press Enter for default: $defaultName)"
-            if ([string]::IsNullOrWhiteSpace($regFileName)) {
-                $regFileName = "$defaultName.reg"
-            }
-            else {
-                $regFileName = "$regFileName.reg"
-            }
+            # Use the name from the selected entry as the .reg file name
+            $regFileName = "$name.reg"
 
             # Write the header to the .reg file
             Set-Content -Path $regFileName -Value "Windows Registry Editor Version 5.00`r`n"

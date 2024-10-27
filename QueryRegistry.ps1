@@ -1,5 +1,3 @@
-# QueryRegistry.ps1
-
 # Define the registry keys to query
 $keysToExport = @(
     "AsobimoOptionKey_Guest_h3614151626",
@@ -14,7 +12,7 @@ function Query-RegistryKey {
 
     # Query the registry for the selected key
     Write-Host "Querying registry for ${key}..."
-    $regQueryResult = reg query "HKEY_CURRENT_USER\SOFTWARE\Asobimo,Inc\ToramOnline" /v "$key"
+    $regQueryResult = & reg query "HKEY_CURRENT_USER\SOFTWARE\Asobimo,Inc\ToramOnline" /v "$key"
 
     # Debugging: Output the raw registry query result to inspect the format
     Write-Host "Raw reg query result: `n$regQueryResult"
@@ -26,11 +24,8 @@ function Query-RegistryKey {
             $hexValue = $matches[1]
             Write-Host "Hex Value for ${key}: $hexValue"
 
-            # Prompt the user for a name
-            $name = Read-Host "Enter a name for this key (or press Enter for default)"
-            if ([string]::IsNullOrWhiteSpace($name)) {
-                $name = (Get-Date).ToString("yy-MM-dd_HH-mm")
-            }
+            # Use a default name based on the current date and time
+            $name = (Get-Date).ToString("yy-MM-dd_HH-mm")
 
             # Save the key, type, and value to Data.txt
             $type = if ($key -like "*Guest*") { "Guest" } else { "Key" }
