@@ -5,20 +5,30 @@ function Main-GUIFunction {
         [string]$operation
     )
 
+    Write-Host "Starting Main-GUIFunction with operation: $operation"
+
     try {
         switch ($operation) {
             'query' {
-                # Call Query-RegistryKey function from QueryRegistry.ps1
-                . .\QueryRegistry.ps1
-                Query-RegistryKey
+                Write-Host "Executing query operation..."
+                if (Test-Path -Path ".\QueryRegistry.ps1") {
+                    . .\QueryRegistry.ps1
+                    Query-RegistryKey
+                } else {
+                    Write-Host "QueryRegistry.ps1 not found."
+                }
             }
             'export' {
-                # Call Export-RegistryKeys function from ExportRegistry.ps1
-                . .\ExportRegistry.ps1
-                Export-RegistryKeys
+                Write-Host "Executing export operation..."
+                if (Test-Path -Path ".\ExportRegistry.ps1") {
+                    . .\ExportRegistry.ps1
+                    Export-RegistryKeys
+                } else {
+                    Write-Host "ExportRegistry.ps1 not found."
+                }
             }
             'view' {
-                # Display contents of Data.txt
+                Write-Host "Executing view operation..."
                 if (Test-Path -Path "Data.txt") {
                     $dataLines = Get-Content -Path "Data.txt"
                     if ($dataLines.Count -eq 0) {
@@ -29,8 +39,7 @@ function Main-GUIFunction {
                             Write-Host $line
                         }
                     }
-                }
-                else {
+                } else {
                     Write-Host "Data.txt not found."
                 }
             }
@@ -38,8 +47,7 @@ function Main-GUIFunction {
                 Write-Host "Invalid operation. Please choose 'query', 'export', or 'view'."
             }
         }
-    }
-    catch {
+    } catch {
         Write-Host "An error occurred: $_"
     }
 
